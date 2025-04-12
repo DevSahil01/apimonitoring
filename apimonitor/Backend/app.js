@@ -1,13 +1,13 @@
 
 import express, { application }  from 'express'
-import getInfo from './insertlogs.js';
-import clickhouse  from "../connection.js"
-import fetchlogs from '../AnalyticalServer/fetchlogs.js';
+import getInfo from './Middlewareserver/insertlogs.js'
+import clickhouse  from "./connection.js"
+import fetchlogs from './AnalyticalServer/fetchlogs.js';
 import monitor from '@devsahil01/apimonitoring'
 
 const app = express();
 
-app.use(monitor())
+
 
 
 const PORT = 4000;

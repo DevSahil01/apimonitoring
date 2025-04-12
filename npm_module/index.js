@@ -20,6 +20,9 @@ const monitor = () => {
       console.log(logData)
 
       axios.post("http://localhost:4000/logData",logData)
+      .then((res)=>{
+         console.log(res.data);
+      })
       .catch((err)=>{
            console.log("Failed to send data to middleware server. ",err)
       })

@@ -18,7 +18,7 @@ async function insertlogs(method,url,statusCode,duration,req,res,next){
             ],
             format:"JSONEachRow"
          })
-
+         
          console.log("log inserted")
      }
      catch(err){
@@ -32,8 +32,15 @@ async function   getInfo(req,res,next){
     const {method,url,status,responseTime,timestamp}=req.body
 
 
+    try{
+        insertlogs(method,url,status,responseTime,req,res,next);
+
+        res.send("Your log is inserted successfully ")
+    }
+    catch(err){
+         res.send("Error while logging your request.")
+    }
   
-    insertlogs(method,url,status,responseTime,req,res,next);
     
 
     
