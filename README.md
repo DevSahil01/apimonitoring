@@ -37,3 +37,10 @@ Ideal for building your own centralized monitoring service (like a mini LogRocke
 
 ```bash
 npm install @devsahil01/apimonitoring
+
+
+pull clickhouse-server docker image
+
+to run that image 
+
+docker run -d --name my-clickhouse -p 8123:8123 -p 9000:9000 -p 9009:9009 -e CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1 clickhouse/clickhouse-server
