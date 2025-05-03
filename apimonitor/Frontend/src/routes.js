@@ -1,4 +1,6 @@
+import { element } from 'prop-types'
 import React from 'react'
+import CreateProjectForm from './views/pages/serviceRegisterForm'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -51,9 +53,25 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
+
+//project section 
+const Projectlist = React.lazy(() => import('./views/pages/myprojectlist'))
+const projectForm = React.lazy(() => import('./views/pages/serviceRegisterForm'))
+const projectDetailComp = React.lazy(() => import('./views/pages/viewProject'))
+
+
+///Analytics section 
+const BasicAnalytics = React.lazy(() => import('./views/analytics/basicAnalytics'))
+const PerformanceAnalytics= React.lazy(()=> import('./views/analytics/performanceAnalytics'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+  { path: '/projects', name: 'projects', element: Projectlist },
+  { path: '/projects/new', name: 'add project', element: projectForm },
+  { path: '/projects/:id', name: "view project", element: projectDetailComp },
+  { path: '/analytics/overview', name: "basic analytics", element: BasicAnalytics },
+  { path: '/analytics/performance', name: "Performance analytics", element: PerformanceAnalytics },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

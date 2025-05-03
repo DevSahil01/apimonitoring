@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link , useNavigate} from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -12,42 +12,98 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CSpinner
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import { useDispatch, useSelector } from 'react-redux'
+import { LoginUser } from '../../../ContextManagement/actions/userActions'
 
 const Login = () => {
+
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
+
+  const [userCred,setUserCred]=useState({email:"",password:""});
+  const [showPassword, setShowPassword] = useState(false);
+  const {loading,loggedIn,error}= useSelector((state)=>state.loggedInUser);
+
+  if(loggedIn){
+     navigate('/dashboard')
+  }
+
+  const handleChange = (e) => {
+    setUserCred({ ...userCred, [e.target.name]: e.target.value })
+    console.log(userCred)
+  }
+
+  const handleSubmit = (e) => {
+      e.preventDefault()
+      console.log('calling api')
+      dispatch(LoginUser(userCred))
+    }
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
+
+
+
+
   return (
-    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center"
+    style={{
+      background: "linear-gradient(135deg, #4a0072 0%, #1e2a4a 50%, #0f172a 100%)",
+      backgroundSize: "cover",
+      position: "relative",
+    }}>
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={8}>
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
+                  <CForm onSubmit={handleSubmit}>
                     <h1>Login</h1>
                     <p className="text-body-secondary">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput placeholder="email" autoComplete="email" name="email"  value={userCred.username} onChange={handleChange}/>
                     </CInputGroup>
-                    <CInputGroup className="mb-4">
-                      <CInputGroupText>
-                        <CIcon icon={cilLockLocked} />
-                      </CInputGroupText>
-                      <CFormInput
-                        type="password"
-                        placeholder="Password"
-                        autoComplete="current-password"
-                      />
-                    </CInputGroup>
+                       <CInputGroup className="mb-3">
+                                        <CInputGroupText
+                                       
+                                        >
+                                          <CIcon icon={cilLockLocked} />
+                                        </CInputGroupText>
+                                        <CFormInput
+                                          type={showPassword ? "text" : "password"}
+                                          placeholder="Password"
+                                          autoComplete="new-password"
+                                          name="password"
+                                          value={userCred.password}
+                                          onChange={handleChange}
+                                          required
+                                        />
+                                        <CInputGroupText
+                                          onClick={togglePasswordVisibility}
+                                          style={{
+                                            background: "rgba(99, 102, 241, 0.2)",
+                                            color: "white",
+                                            cursor: "pointer",
+                                          }}
+                                        >
+                                          <p>{showPassword?"hide":"show"}</p>
+                                        </CInputGroupText>
+                                       
+                                      </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
-                          Login
+                        <CButton color="primary" className="px-4" type='submit'>
+                          {loading ? "loging in " :"login"}
+                        {loading && <CSpinner style={{ width: '1rem', height: '1rem' }} />}
                         </CButton>
                       </CCol>
                       <CCol xs={6} className="text-right">

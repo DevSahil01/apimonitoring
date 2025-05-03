@@ -77,6 +77,9 @@ const WidgetsDropdown = (props) => {
   }
 
   useEffect(() => {
+    getAvgResTime();
+    getTotalErrorRequests();
+    getTotalRequestNumber();
     document.documentElement.addEventListener('ColorSchemeChange', () => {
       if (widgetChartRef1.current) {
         setTimeout(() => {
@@ -93,9 +96,6 @@ const WidgetsDropdown = (props) => {
       }
     })
 
-    getTotalRequestNumber()
-    getTotalErrorRequests()
-    getAvgResTime()
   }, [widgetChartRef1, widgetChartRef2])
 
   return (

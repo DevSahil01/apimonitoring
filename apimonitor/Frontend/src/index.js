@@ -5,9 +5,10 @@ import 'core-js'
 
 import App from './App'
 import store from './store'
+import { myStore } from './mystore'
 
 createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
+  <Provider store={myStore}>
     <App />
   </Provider>,
 )

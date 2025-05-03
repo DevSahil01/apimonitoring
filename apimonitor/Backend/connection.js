@@ -1,4 +1,4 @@
-import { createClient } from '@clickhouse/client';
+import { createClient } from "@clickhouse/client";
 
 // const clickhouse=createClient({
 //     url: 'https://crnq3xzael.germanywestcentral.azure.clickhouse.cloud:8443',
@@ -11,32 +11,32 @@ import { createClient } from '@clickhouse/client';
 //   })
 
 
-const client=createClient({
+const clickhouse=createClient({
    host:'http://localhost:8123',
-   database:'default'
+   database:'default',
+   username: 'default',
 })
 
 
 
 async function testConnection() {
   try {
-    const result = await client.query({
+    const result = await clickhouse.query({
       query: 'SELECT 1 as test',
     });
     const data = await result.json();
-    console.log('Connection successful:', data);
+    console.log('Connection successful:');
   } catch (error) {
     console.error('Connection failed:', error);
   } finally {
-    await client.close();
+    await clickhouse.close();
   }
 }
 
 
-
+export default clickhouse;
 
 
 
 testConnection();
 
-export default client;

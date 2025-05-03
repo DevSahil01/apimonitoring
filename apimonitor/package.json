@@ -1,5 +1,18 @@
 {
   "dependencies": {
-    "@devsahil01/apimonitoring": "^1.0.1"
-  }
+    "@clickhouse/client": "^1.11.1",
+    "@devsahil01/apimonitoring": "^1.0.3",
+    "axios": "^1.8.4",
+    "nodemon": "^3.1.10",
+    "vite": "^6.3.3"
+  },
+  "name": "apimonitor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sahil sawant",
+  "license": "ISC",
+  "description": ""
 }
