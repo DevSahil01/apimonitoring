@@ -91,27 +91,27 @@ const _nav = [
     // ],
   },
   {
-    component: CNavGroup,
+    component: CNavItem,
     name: 'Error Analytics',
-    to: '/errors',
+    to: '/analytics/errors',
     icon: <CIcon icon={cilWarning} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'Error Dashboard',
-        to: '/errors/dashboard',
-      },
-      {
-        component: CNavItem,
-        name: 'Error Trends',
-        to: '/errors/trends',
-      },
-      {
-        component: CNavItem,
-        name: 'Error Types',
-        to: '/errors/types',
-      },
-    ],
+    // items: [
+    //   {
+    //     component: CNavItem,
+    //     name: 'Error Dashboard',
+    //     to: '/errors/dashboard',
+    //   },
+    //   {
+    //     component: CNavItem,
+    //     name: 'Error Trends',
+    //     to: '/errors/trends',
+    //   },
+    //   {
+    //     component: CNavItem,
+    //     name: 'Error Types',
+    //     to: '/errors/types',
+    //   },
+    // ],
   },
  
   {

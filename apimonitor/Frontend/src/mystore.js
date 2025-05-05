@@ -7,6 +7,7 @@ import { changeState } from "./ContextManagement/reducers/templateReducer";
 import { getProjectsReducer, projectRegisterReducer } from "./ContextManagement/reducers/projectReducer";
 import { basicAnalyticsReducer } from "./ContextManagement/reducers/basicAnalyticsReducer";
 import { performanceAnalyticsReducer } from "./ContextManagement/reducers/performanceAnalyticsReducer";
+import { errorAnalyticsReducer } from "./ContextManagement/reducers/errorAnalyticsReducer";
 
 
 const reducers = combineReducers({
@@ -16,7 +17,8 @@ const reducers = combineReducers({
      projectRegisterState: projectRegisterReducer,
      getMyprojects: getProjectsReducer,
      basicAnalytics: basicAnalyticsReducer,
-     performanceAnalytics: performanceAnalyticsReducer
+     performanceAnalytics: performanceAnalyticsReducer,
+     errorAnalytics: errorAnalyticsReducer
 });
 
 

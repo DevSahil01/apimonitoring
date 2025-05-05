@@ -53,7 +53,7 @@ const ProjectDetails = () => {
                             <CCard className="mb-3">
                                 <CCardHeader>Basic Information</CCardHeader>
                                 <CCardBody>
-                                    <DetailItem label="Project ID" value={project.id} />
+                                    <DetailItem label="Project ID" value={project._id} />
                                     <DetailItem
                                         label="Created At"
                                         value={new Date(project.createdAt).toLocaleString()}
