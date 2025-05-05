@@ -1,0 +1,60 @@
+Important Queries for API Monitoring Project
+
+
+1 Create table for monitoring metrices
+
+CREATE TABLE api_request_logs (
+    id UUID DEFAULT generateUUIDv4(),
+    project_id String,
+    method String,
+    endpoint String,
+    status_code UInt16,
+    response_time_ms Float64,
+    timestamp DateTime64(3),
+    ip_address String,
+    user_agent String,
+    headers String,
+    query_params String,
+    request_body_size UInt32,
+    response_body_size UInt32,
+    is_error UInt8 DEFAULT if(status_code >= 400, 1, 0)
+)
+ENGINE = MergeTree()
+ORDER BY (project_id, timestamp, id)
+PARTITION BY toYYYYMM(timestamp);
+
+3. creating view for performance 
+
+CREATE MATERIALIZED VIEW api_errors_mv
+ENGINE = SummingMergeTree()
+ORDER BY (project_id, toStartOfHour(timestamp))
+AS SELECT
+    project_id,
+    toStartOfHour(timestamp) AS hour,
+    count() AS total_requests,
+    sum(is_error) AS error_count
+FROM api_request_logs
+GROUP BY project_id, hour;
+
+CREATE MATERIALIZED VIEW api_performance_mv
+ENGINE = AggregatingMergeTree()
+ORDER BY (project_id, endpoint, toStartOfHour(timestamp))
+AS SELECT
+    project_id,
+    endpoint,
+    toStartOfHour(timestamp) AS hour,
+    avgState(response_time_ms) AS avg_response_time,
+    maxState(response_time_ms) AS max_response_time,
+    quantileState(0.95)(response_time_ms) AS p95_response_time
+FROM api_request_logs
+GROUP BY project_id, endpoint, hour;
+
+2. create table for users
+
+CREATE TABLE users (
+ id UInt32,
+ name Varchar(20),
+ email Varchar(50),
+ password Varchar(50),
+ createdAt DATETIME DEFAULT now());
+ENGINE = MergeTree order by CreatedAt;
