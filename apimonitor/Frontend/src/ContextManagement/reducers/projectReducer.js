@@ -4,7 +4,9 @@ import {
      PROJECT_REGISTER_REQUEST,
      GET_PROJECTS_REQUEST,
      GET_PROJECTS_SUCCESS,
-     GET_PROJECTS_FAIL
+     GET_PROJECTS_FAIL,
+     SET_CURRENT_PROJECT,
+     SET_CURRENT_PROJECT_FAIL
 } from '../constants/projectConstants.js'
 import {
      CLEAR_ERRORS
@@ -38,33 +40,50 @@ export const projectRegisterReducer = (state = { isRegistered: {} }, action) => 
           default:
                return state;
      }
-}      
+}
 
-export const getProjectsReducer = (state = { projects : [] },action)=>{
-     
-      switch (action.type){
-           case GET_PROJECTS_REQUEST:
-                return {
-                     ...state,
-                     loading:true
-                }
-           case GET_PROJECTS_SUCCESS:
-                return {
-                     ...state,
-                     loading:false,
-                     projects:action.payload
-                }
-           case GET_PROJECTS_FAIL:
-                return {
-                     loading : false,
-                     error: action.payload,
-                }
-           case CLEAR_ERRORS:
+export const getProjectsReducer = (state = { projects: [] }, action) => {
+
+     switch (action.type) {
+          case GET_PROJECTS_REQUEST:
+               return {
+                    ...state,
+                    loading: true
+               }
+          case GET_PROJECTS_SUCCESS:
+               return {
+                    ...state,
+                    loading: false,
+                    projects: action.payload
+               }
+          case GET_PROJECTS_FAIL:
+               return {
+                    loading: false,
+                    error: action.payload,
+               }
+          case CLEAR_ERRORS:
                return {
                     ...state,
                     error: null
                }
           default:
                return state;
-      }
+     }
+}
+
+export const currentProjectReducer = (state = { currentProjectID:null },action) => {
+     switch (action.type) {
+          case SET_CURRENT_PROJECT:
+               return {
+                    ...state,
+                    currentProjectID: action.payload,
+               }
+          case SET_CURRENT_PROJECT_FAIL:
+               return {
+                    ...state,
+                    error: null
+               }
+          default:
+               return state;
+     }
 }

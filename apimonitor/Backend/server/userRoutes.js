@@ -9,7 +9,7 @@ const userRouter = express.Router();
 
 userRouter.post('/register', async (req, res) => {
     const { username, name, email, password } = req.body;
-   
+    console.log(req.body)
     
     try {
  
@@ -18,10 +18,9 @@ userRouter.post('/register', async (req, res) => {
             return res.status(400).json({ error: "User already exists" });
         }
         const registerUser = new User({
-            username,
-            name,
             email,
-            password 
+            password,
+            name,
         });
 
         await registerUser.save();

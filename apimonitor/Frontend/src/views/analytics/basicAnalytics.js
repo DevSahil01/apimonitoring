@@ -28,13 +28,19 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 const BasicAnalyticsPage = () => {
     const dispatch = useDispatch();
 
+    const {currentProjectID}= useSelector((state=> state.currentProjectState))
+
     const { loading, data, error } = useSelector((state) => state.basicAnalytics);
 
     console.log(data)
 
     useEffect(() => {
-        dispatch(getBasicAnalytics());
-    }, [dispatch]);
+        if(currentProjectID)
+        {
+
+            dispatch(getBasicAnalytics(currentProjectID));
+        }
+    }, [dispatch,currentProjectID]);
 
     if (loading) return <CSpinner className="d-block mx-auto mt-5" color="primary" />;
     if (error) return <CAlert color="danger">Error: {error}</CAlert>;

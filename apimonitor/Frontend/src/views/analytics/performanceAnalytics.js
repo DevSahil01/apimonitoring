@@ -36,10 +36,16 @@ const formatTimeTick = (timeStr) => {
 const PerformanceAnalyticsPage = () => {
   const dispatch = useDispatch();
   const { performance, loading, error } = useSelector((state) => state.performanceAnalytics);
+  const {currentProjectID}= useSelector((state=> state.currentProjectState))
 
-  useEffect(() => {
-    dispatch(getPerformanceAnalytics());
-  }, [dispatch]);
+ useEffect(() => {
+     if(currentProjectID){
+
+       dispatch(getPerformanceAnalytics('today',500,currentProjectID));
+     }
+   }, [dispatch,currentProjectID]);
+
+  // console.log(currentProjectID)
 
   // Data processing
   const processChartData = () => {

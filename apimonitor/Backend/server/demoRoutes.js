@@ -5,7 +5,7 @@ import createMonitor from '../../../npm_module/index.js';
 import auth from '../middleware/auth.js';
 
 const monitor = createMonitor(
-   '681534d8060da104357abe87', 'cad92ef8c9b2e80a8e8fdc429ef4128d188581c2a7e199ae4593af013d4f10d0'
+   '682a36d3e43e2fefe5a7c979', '6a669c59e3f080595602f4d5a27b135d47607c984deb5cb5135804df928a82b5'
 )
 
 
@@ -23,7 +23,7 @@ demoRouter.post("/login", monitor , async (req, res) => {
    try {
       setTimeout(() => {
         res.json({ id: 1 });
-      }, 5000);
+      }, 1000);
     } catch (err) {
       next(err); 
     }
@@ -38,7 +38,7 @@ demoRouter.delete("/delete", monitor,async (req, res) => {
    try {
       setTimeout(() => {
         res.send(" data deleted ")
-      }, 10000);
+      }, 7000);
     } catch (err) {
       next(err); 
     }
@@ -63,7 +63,7 @@ demoRouter.get('/pagenot', monitor, async (req, res) => {
  demoRouter.get('/crash', monitor, async (req, res) => {
    // This will crash
    // const result = nonExistentFunction(); // undefined function
-   res.status(300).send("crash ");
+   res.status(500).send("crash ");
  });
  
 

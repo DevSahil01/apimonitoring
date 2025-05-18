@@ -15,17 +15,21 @@ import {
 import { cilCheckCircle } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProjects } from '../ContextManagement/actions/projectActions'
+import { changeCurrentProject, getProjects } from '../ContextManagement/actions/projectActions'
 
 const ProjectSelector = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const {currentProjectID}= useSelector((state=> state.currentProjectState))
   const { projects, loading } = useSelector((state) => state.getMyprojects)
   const [projectsData, setProjectsData] = useState([])
 
   // Fetch projects on mount
   useEffect(() => {
-    dispatch(getProjects())
+    dispatch(getProjects());
+   
   }, [dispatch])
+
+  console.log(currentProjectID)
 
   // Sync Redux data to local state when it changes
   useEffect(() => {
@@ -35,6 +39,7 @@ const ProjectSelector = () => {
         selected: false, // Initialize all as not selected
       }))
       setProjectsData(initializedProjects)
+      dispatch(changeCurrentProject(projects[0]._id))
     }
   }, [projects])
 
@@ -45,6 +50,7 @@ const ProjectSelector = () => {
         selected: p._id === projectId,
       }))
     )
+    dispatch(changeCurrentProject(projectId))
   }
 
   const currentProject = projectsData.find(p => p.selected) || projectsData[0]

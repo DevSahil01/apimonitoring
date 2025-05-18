@@ -3,7 +3,7 @@ import clickhouse from "../connection.js";
 const getErrorAnalytics = async (req, res) => {
     try {
         const { projectId } = req.params;
-        console.log(projectId);
+       
 
         const { period = '24 HOUR' } = req.query;
 

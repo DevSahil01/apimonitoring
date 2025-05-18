@@ -4,6 +4,7 @@ const getBasicAnalytics = async (req, res) => {
   try {
     const period = req.query.period || 'today';
     const periodStart = getPeriodStart(period);
+    const { projectId } = req.params;
 
     // Parallel queries
     const [summary, topEndpoints, methods] = await Promise.all([
@@ -15,9 +16,10 @@ const getBasicAnalytics = async (req, res) => {
             uniq(ip_address) AS uniqueIPs
           FROM api_request_logs
           WHERE timestamp >= {periodStart:String}
+          AND project_id = {projectId:String}
         `,
         format: 'JSONEachRow',
-        query_params: { periodStart }
+        query_params: { periodStart, projectId }
       }).then(r => r.json()),
 
       // 🔁 Top Endpoints
@@ -28,12 +30,13 @@ const getBasicAnalytics = async (req, res) => {
             count() AS count
           FROM api_request_logs
           WHERE timestamp >= {periodStart:String}
+          AND project_id = {projectId:String}
           GROUP BY endpoint
           ORDER BY count DESC
           LIMIT 10
         `,
         format: 'JSONEachRow',
-        query_params: { periodStart }
+        query_params: { periodStart , projectId}
       }).then(r => r.json()),
 
       // 🧭 HTTP Methods
@@ -44,11 +47,12 @@ const getBasicAnalytics = async (req, res) => {
             count() AS count
           FROM api_request_logs
           WHERE timestamp >= {periodStart:String}
+          AND project_id = {projectId:String}
           GROUP BY method
           ORDER BY count DESC
         `,
         format: 'JSONEachRow',
-        query_params: { periodStart }
+        query_params: { periodStart , projectId}
       }).then(r => r.json())
     ]);
 

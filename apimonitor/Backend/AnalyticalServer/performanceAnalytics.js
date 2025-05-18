@@ -3,9 +3,13 @@ import getPeriodStart from "../Utils/periodUtils.js";
 
 const getPerformanceMetrics = async (req, res) => {
   try {
-    const { period = 'today', threshold = 500 } = req.query;
+    const { period = 'today', threshold = 500 , projectId} = req.query;
     const periodStart = getPeriodStart(period);
     const intervalUnit = period === 'today' ? 'HOUR' : 'DAY';
+
+
+    console.log("performance" + projectId)
+
 
 
     const [
@@ -23,11 +27,12 @@ const getPerformanceMetrics = async (req, res) => {
             count() AS request_count
           FROM api_request_logs
           WHERE timestamp >= parseDateTimeBestEffort({periodStart:String})
+          AND project_id = {projectId:String}
           GROUP BY endpoint
           ORDER BY avg_response_time DESC
         `,
         format: 'JSONEachRow',
-        query_params: { periodStart }
+        query_params: { periodStart ,projectId}
       }).then(r => r.json()),
 
       // 🐢 Slow Endpoints (avg > threshold)
@@ -42,12 +47,13 @@ const getPerformanceMetrics = async (req, res) => {
           WHERE 
             timestamp >= parseDateTimeBestEffort({periodStart:String})
             AND response_time_ms > {threshold:UInt32}
+            AND project_id = {projectId:String}
           GROUP BY endpoint
           ORDER BY avg_time DESC
           LIMIT 10
         `,
         format: 'JSONEachRow',
-        query_params: { periodStart, threshold: parseInt(threshold) }
+        query_params: { periodStart, threshold: parseInt(threshold) ,projectId}
       }).then(r => r.json()),
 
       // ⏱️ Response Time Distribution
@@ -63,11 +69,12 @@ const getPerformanceMetrics = async (req, res) => {
             count(*) AS count
           FROM api_request_logs
           WHERE timestamp >= parseDateTimeBestEffort({periodStart:String})
+          AND project_id = {projectId:String}
           GROUP BY time_bucket
           ORDER BY time_bucket
         `,
         format: 'JSONEachRow',
-        query_params: { periodStart }
+        query_params: { periodStart,projectId }
       }).then(r => r.json()),
 
       // 📊 Time Series of Response Times
@@ -79,11 +86,12 @@ const getPerformanceMetrics = async (req, res) => {
             quantile(0.95)(response_time_ms) AS p95_time
           FROM api_request_logs
           WHERE timestamp >= parseDateTimeBestEffort({periodStart:String})
+          AND project_id = {projectId:String}
           GROUP BY time_bucket
           ORDER BY time_bucket
         `,
         format: 'JSONEachRow',
-        query_params: { periodStart }
+        query_params: { periodStart,projectId }
       }).then(r => r.json())
     ]);
 

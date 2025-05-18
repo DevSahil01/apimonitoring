@@ -22,10 +22,14 @@ ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearS
 const ErrorAnalyticsPage = () => {
   const dispatch = useDispatch();
   const { loading, data, error } = useSelector((state) => state.errorAnalytics);
+  const {currentProjectID}= useSelector((state=> state.currentProjectState))
 
   useEffect(() => {
-    dispatch(getErrorAnalytics('681534d8060da104357abe87'));
-  }, [dispatch]);
+    if(currentProjectID){
+
+      dispatch(getErrorAnalytics(currentProjectID));
+    }
+  }, [dispatch,currentProjectID]);
 
   const pieChartData = {
     labels: data.errorCategoryDistribution?.map(item => item.error_type),
