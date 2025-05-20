@@ -6,8 +6,13 @@ import {
   CCardBody,
   CCardHeader,
   CSpinner,
+  CButton,
   CAlert
+  
 } from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { cilCloudDownload, cilReload } from '@coreui/icons';
+
 import {
   BarChart,
   Bar,
@@ -79,6 +84,14 @@ const PerformanceAnalyticsPage = () => {
 
   const chartData = processChartData();
 
+   const handleRefresh = () => {
+      if (currentProjectID) {
+       dispatch(getPerformanceAnalytics('today',500,currentProjectID));
+        
+      }
+    };
+  
+
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center" style={{ height: '50vh' }}>
@@ -98,6 +111,10 @@ const PerformanceAnalyticsPage = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
       {/* Avg Response Time Chart */}
+      <CButton color="primary" variant="outline" onClick={handleRefresh}>
+                  <CIcon icon={cilReload} className="me-2" />
+                  Refresh
+                </CButton>
       <CCard>
         <CCardHeader>Average Response Times (ms)</CCardHeader>
         <CCardBody style={{ height: '400px' }}>

@@ -18,8 +18,8 @@ app.use(cookieParser())
 
 
 app.use(cors( {
-  origin: ['http://localhost:5173'], // Your frontend URL
-  credentials: true, // REQUIRED for cookies
+  origin: ['http://localhost:5173'], 
+  credentials: true, 
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 

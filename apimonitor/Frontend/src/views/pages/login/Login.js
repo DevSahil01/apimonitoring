@@ -29,7 +29,7 @@ const Login = () => {
   const {loading,loggedIn,error}= useSelector((state)=>state.loggedInUser);
 
   if(loggedIn){
-     navigate('/dashboard')
+     navigate('/projects')
   }
 
   const handleChange = (e) => {

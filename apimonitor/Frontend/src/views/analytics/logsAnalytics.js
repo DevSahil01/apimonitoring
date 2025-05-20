@@ -25,10 +25,10 @@ const ShowLogs = () => {
   useEffect(() => {
     if (currentProjectID) {
       fetchLogs(dispatch, currentProjectID);
-    //   const interval = setInterval(() => {
-    //     fetchLogs(dispatch, currentProjectID);
-    //   }, 5000);
-    //   return () => clearInterval(interval);
+      const interval = setInterval(() => {
+        fetchLogs(dispatch, currentProjectID);
+      }, 5000);
+      return () => clearInterval(interval);
     }
   }, [dispatch, currentProjectID]);
 

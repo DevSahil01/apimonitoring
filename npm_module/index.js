@@ -1,6 +1,7 @@
-const axios = require('axios');
+// const axios = require('axios');
+import axios from "axios";
 
-const createMonitor = (projectId, apiKey) => {
+ const createMonitor = (projectId, apiKey) => {
   let projectConfig = null;
   let configLastFetched = 0;
 
@@ -54,7 +55,7 @@ const createMonitor = (projectId, apiKey) => {
 
 // Helper functions (unchanged as requested)
 function shouldExcludeRequest(req, config) {
-  if (!config.excludeRoutes && !config.excludePatterns) return false;
+  if (!config.excludeRoutes ) return false;
   
   // Check exact path matches
   if (config.excludeRoutes?.includes(req.path)) return true;
@@ -83,4 +84,4 @@ function shouldLogRequest(req, res, config) {
   return true;
 }
 
-module.exports = createMonitor;
+export default createMonitor;

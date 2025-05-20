@@ -106,6 +106,7 @@ projectRouter.get('/:id', auth, async (req, res) => {
 
 // Add this new route to your projectRouter.js
 projectRouter.get('/config/:projectId', async (req, res) => {
+  console.log('request for project config')
   try {
     const project = await Project.findOne({
       _id: req.params.projectId,

@@ -12,6 +12,9 @@ import {
   LOGS_FETCH_START,
   LOGS_FETCH_SUCCESS,
   LOGS_FETCH_ERROR,
+  TREND_ANALYTICS_REQUEST,
+  TREND_ANALYTICS_SUCCESS,
+  TREND_ANALYTICS_FAIL,
 } from "../constants/analyticsConstants.js";
 
 export const getBasicAnalytics = (projectId) => async (dispatch) => {
@@ -87,5 +90,26 @@ export const fetchLogs = async (dispatch, projectId) => {
     dispatch({ type: LOGS_FETCH_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: LOGS_FETCH_ERROR, payload: error.message });
+  }
+};
+
+
+
+export const fetchTrendAnalytics = (projectId, period = '7_days') => async (dispatch) => {
+  try {
+    dispatch({ type: TREND_ANALYTICS_REQUEST });
+
+    const { data } = await axios.get(`/api/analytics/history/trends/${projectId}`,
+      {
+         params:{period}
+      }
+    );
+
+    dispatch({ type: TREND_ANALYTICS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: TREND_ANALYTICS_FAIL,
+      payload: error.response?.data?.message || error.message,
+    });
   }
 };

@@ -1,6 +1,6 @@
 {
   "name": "@devsahil01/apimonitoring",
-  "version": "2.0.1",
+  "version": "2.0.5",
   "description": "This is npm module to monitor your node API applications.",
   "main": "index.js",
   "scripts": {

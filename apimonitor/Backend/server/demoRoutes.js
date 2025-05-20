@@ -1,11 +1,14 @@
 import express from 'express'
 const demoRouter = express.Router();
 import logHandler from '../Middlewareserver/insertlogs.js';
-import createMonitor from '../../../npm_module/index.js';
 import auth from '../middleware/auth.js';
 
+
+import {createMonitor} from '@devsahil01/apimonitoring';
+
 const monitor = createMonitor(
-   '682a36d3e43e2fefe5a7c979', '6a669c59e3f080595602f4d5a27b135d47607c984deb5cb5135804df928a82b5'
+   '682a36d3e43e2fefe5a7c979',
+    '6a669c59e3f080595602f4d5a27b135d47607c984deb5cb5135804df928a82b5'
 )
 
 
@@ -17,6 +20,15 @@ demoRouter.post('/logData', logHandler,async (req, res) => {
    res.send('hello')
 })
 
+
+demoRouter.get('/viewimage',monitor,(req,res)=>{
+    res.status(200).send('images ')
+})
+
+
+demoRouter.get('/getimages',monitor,(req,res)=>{
+    res.status(200).send('get all images  ')
+})
 
 
 demoRouter.post("/login", monitor , async (req, res) => {

@@ -9,6 +9,7 @@ import { basicAnalyticsReducer } from "./ContextManagement/reducers/basicAnalyti
 import { performanceAnalyticsReducer } from "./ContextManagement/reducers/performanceAnalyticsReducer";
 import { errorAnalyticsReducer } from "./ContextManagement/reducers/errorAnalyticsReducer";
 import logReducer from "./ContextManagement/reducers/logReducer";
+import trendAnalyticsReducer from "./ContextManagement/reducers/historyAnalyticsReducer";
 
 
 const reducers = combineReducers({
@@ -18,6 +19,7 @@ const reducers = combineReducers({
      projectRegisterState: projectRegisterReducer,
      currentProjectState:currentProjectReducer,
      projectLogs:logReducer,
+     trendAnalytics:trendAnalyticsReducer,
      getMyprojects: getProjectsReducer,
      basicAnalytics: basicAnalyticsReducer,
      performanceAnalytics: performanceAnalyticsReducer,

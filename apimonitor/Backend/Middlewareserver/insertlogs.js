@@ -48,6 +48,7 @@ async function logHandler(req, res, next) {
     }
 
     try {
+        //insert log function 
         await insertLog(logData);
         res.status(200).json({ success: true });
     } catch (err) {

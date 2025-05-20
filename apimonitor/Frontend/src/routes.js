@@ -62,9 +62,10 @@ const projectDetailComp = React.lazy(() => import('./views/pages/viewProject'))
 
 ///Analytics section 
 const BasicAnalytics = React.lazy(() => import('./views/analytics/basicAnalytics'))
-const PerformanceAnalytics= React.lazy(()=> import('./views/analytics/performanceAnalytics'))
-const ErrorAnalytics= React.lazy(()=> import('./views/analytics/errorAnalytics'))
-const logsAnalytics = React.lazy(()=> import('./views/analytics/logsAnalytics'))
+const PerformanceAnalytics = React.lazy(() => import('./views/analytics/performanceAnalytics'))
+const ErrorAnalytics = React.lazy(() => import('./views/analytics/errorAnalytics'))
+const logsAnalytics = React.lazy(() => import('./views/analytics/logsAnalytics'))
+const trendAnalytics = React.lazy(() => import('./views/analytics/historyAnalytics'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -75,7 +76,8 @@ const routes = [
   { path: '/analytics/overview', name: "basic analytics", element: BasicAnalytics },
   { path: '/analytics/performance', name: "Performance analytics", element: PerformanceAnalytics },
   { path: '/analytics/errors', name: "Error analytics", element: ErrorAnalytics },
-  {path : '/logs/recent',name : "recent logs", element:logsAnalytics},
+  { path: '/logs/recent', name: "recent logs", element: logsAnalytics },
+  { path: '/history/trends', name: "history trends ", element: trendAnalytics },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
